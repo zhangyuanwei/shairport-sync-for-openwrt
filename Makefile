@@ -10,11 +10,11 @@ PKG_NAME:=shairport-sync
 PKG_VERSION:=4.2
 PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-# PKG_SOURCE_URL:=https://codeload.github.com/mikebrady/shairport-sync/tar.gz/$(PKG_VERSION)?
-PKG_SOURCE_URL:=https://github.com/mikebrady/shairport-sync/archive/refs/tags/$(PKG_VERSION).tar.gz?
-# PKG_HASH:=17990cb2620551caa07a1c3b371889e55803071eaada04e958c356547a7e1795
-PKG_HASH:=649d95eede8b9284b2e8b9c97d18c1c64cffae0a6c75bc4f03e3ae494a3e25b6
+# PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+# # PKG_SOURCE_URL:=https://codeload.github.com/mikebrady/shairport-sync/tar.gz/$(PKG_VERSION)?
+# PKG_SOURCE_URL:=https://github.com/mikebrady/shairport-sync/archive/refs/tags/$(PKG_VERSION).tar.gz?
+# # PKG_HASH:=17990cb2620551caa07a1c3b371889e55803071eaada04e958c356547a7e1795
+# PKG_HASH:=649d95eede8b9284b2e8b9c97d18c1c64cffae0a6c75bc4f03e3ae494a3e25b6
 
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>, \
 		Mike Brady <mikebrady@eircom.net>
@@ -119,6 +119,11 @@ endef
 Package/shairport-sync-openssl/install = $(Package/shairport-sync/default/install)
 Package/shairport-sync-mbedtls/install = $(Package/shairport-sync/default/install)
 Package/shairport-sync-mini/install = $(Package/shairport-sync/default/install)
+
+define Build/Prepare
+	mkdir -p $(PKG_BUILD_DIR)
+	$(CP) ./src/* $(PKG_BUILD_DIR)
+endef
 
 $(eval $(call BuildPackage,shairport-sync-openssl))
 $(eval $(call BuildPackage,shairport-sync-mbedtls))
